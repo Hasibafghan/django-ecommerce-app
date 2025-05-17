@@ -1,4 +1,7 @@
-from django.shortcuts import render , HttpResponse  
+from django.shortcuts import render   
+from . models import Product , Category , Customer , Order
 
-def hi(request):
-    return render(request,'index.html',{})
+
+def products(request):
+    products = Product.objects.all()
+    return render(request , 'index.html' , {'products': products})    
