@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MaxValueValidator , MinValueValidator
 
 
 class Category(models.Model):
@@ -26,6 +26,10 @@ class Product(models.Model):
     price = models.DecimalField(default=0, max_digits=10, decimal_places=0)
     category = models.ForeignKey(Category , on_delete=models.CASCADE , default=1)
     image = models.ImageField(upload_to='upload/product/') 
+
+    is_in_discount = models.BooleanField(default=False)
+    discount = models.DecimalField(default=0, max_digits=10, decimal_places=0)
+    gave_star = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
 
     def __str__(self) -> str:
         return f'{self.name} - {self.category}'
