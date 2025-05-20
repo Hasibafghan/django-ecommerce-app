@@ -17,9 +17,25 @@
   <head></head>
   <body>
     <!-- Navigation -->
-    {% include 'include/navbar.html' %}
-
-    {% block content %}
+    {% include 'include/navbar.html' %} {% if messages %}
+      <div class="container" id="messages-container">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      <script>
+        setTimeout(function () {
+          var container = document.getElementById('messages-container')
+          if (container) {
+            container.style.transition = 'opacity 0.7s'
+            container.style.opacity = '0'
+            setTimeout(function () {
+              container.style.display = 'none'
+            }, 700)
+          }
+        }, 2500)
+      </script>
+    {% endif %} {% block content %}
 
     {% endblock %}
     <!-- Footer -->
