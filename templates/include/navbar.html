@@ -28,13 +28,25 @@
           </ul>
         </li>
       </ul>
-      <form class="d-flex">
+      <form class="d-flex mx-1">
         <button class="btn btn-outline-dark" type="submit">
           <i class="bi-cart-fill me-1"></i>
           Cart
           <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
         </button>
       </form>
+      {% if user.is_authenticated %}
+        <div class="d-flex mx-1">
+          <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="btn btn-outline-dark" type="submit"><i class="bi-person-fill me-1"></i> Logout</button>
+          </form>
+        </div>
+      {% else %}
+        <div class="d-flex mx-1">
+          <a href="{% url 'login' %}" class="btn btn-outline-dark"><i class="bi-person-fill me-1"></i> Login</a>
+        </div>
+      {% endif %}
     </div>
   </div>
 </nav>
