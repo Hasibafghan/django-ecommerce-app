@@ -24,7 +24,7 @@
         {% endfor %}
       </div>
       <script>
-        setTimeout(function () {
+           setTimeout(function () {
           var container = document.getElementById('messages-container')
           if (container) {
             container.style.transition = 'opacity 0.7s'
@@ -35,7 +35,9 @@
           }
         }, 2500)
       </script>
-    {% endif %} {% block content %}
+    {% endif %}
+     
+    {% block content %}
 
     {% endblock %}
     <!-- Footer -->

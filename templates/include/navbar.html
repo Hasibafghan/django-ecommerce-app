@@ -28,7 +28,7 @@
           </ul>
         </li>
       </ul>
-      <form class="d-flex mx-1">
+      <form class="d-flex mx-1 my-2">
         <button class="btn btn-outline-dark" type="submit">
           <i class="bi-cart-fill me-1"></i>
           Cart
@@ -36,14 +36,14 @@
         </button>
       </form>
       {% if user.is_authenticated %}
-        <div class="d-flex mx-1">
+        <div class="d-flex mx-1 my-2">
           <form method="POST" action="{% url 'logout' %}">
             {% csrf_token %}
             <button class="btn btn-outline-dark" type="submit"><i class="bi-person-fill me-1"></i> Logout</button>
           </form>
         </div>
       {% else %}
-        <div class="d-flex mx-1">
+        <div class="d-flex mx-1 my-2">
           <a href="{% url 'login' %}" class="btn btn-outline-dark"><i class="bi-person-fill me-1"></i> Login</a>
         </div>
       {% endif %}

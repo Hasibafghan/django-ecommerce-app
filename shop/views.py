@@ -1,4 +1,4 @@
-from django.shortcuts import render  , redirect
+from django.shortcuts import render  , redirect , get_object_or_404 
 from . models import Product , Category , Customer , Order
 from django.contrib.auth import authenticate , login , logout
 from django.contrib import messages
@@ -38,8 +38,8 @@ def login_user(request):
             messages.success(request , 'login successfully')
             return redirect('products')
         else:
-            messages.error(request, 'Invalid username or password.')
-            return redirect('login_user')
+            messages.error(request, 'Invalid username or password')
+            return render(request, 'login.html')
     return render(request, 'login.html')
 
 
