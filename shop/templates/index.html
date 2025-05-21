@@ -2,17 +2,90 @@
 {% load static %}
 <!-- Navigation -->
 {% include 'include/navbar.html' %}
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    
 {% block content %}
   <!-- Header -->
-  <header class="bg-dark py-5">
-    <div class="container px-4 px-lg-5 my-5">
-      <div class="text-center text-white">
-        <h1 class="display-4 fw-bolder">Shop in style</h1>
-        <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+  <style>
+    .gradient-bg {
+      padding: 50px 0;
+      background: linear-gradient(-45deg, #ff6ec4, #7873f5, #42e695, #fdd819);
+      background-size: 400% 400%;
+      animation: gradientMove 15s ease infinite;
+    }
+
+    @keyframes gradientMove {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .carousel-item img {
+      height: 400px;
+      object-fit: cover;
+      width: 100%;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .carousel-caption {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="gradient-bg">
+    <div class="container">
+      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner rounded-4">
+          <div class="carousel-item active">
+            <img src="{% static 'assets/Claw_SeriesTab.png' %}" class="d-block w-100" alt="Slide 1">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Slide One</h5>
+              <p>Description for the first slide.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'assets/google-pixel-9-4-2.jpg' %}" class="d-block w-100" alt="Slide 2">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Slide Two</h5>
+              <p>Description for the second slide.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'assets/samsung-s25ultra-review-01.jpg' %}" class="d-block w-100" alt="Slide 3">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Slide Three</h5>
+              <p>Description for the third slide.</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
     </div>
-  </header>
+  </div>
 
   <!-- Section -->
   <section class="py-5">
@@ -81,3 +154,6 @@
     </div>
   </section>
 {% endblock %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
