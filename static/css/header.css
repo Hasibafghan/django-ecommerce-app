@@ -1,0 +1,32 @@
+ .gradient-bg {
+      padding: 50px 0;
+      background: linear-gradient(-45deg, #ff6ec4, #7873f5, #42e695, #fdd819);
+      background-size: 400% 400%;
+      animation: gradientMove 4s ease-in-out infinite;
+    }
+
+    @keyframes gradientMove {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .carousel-item img {
+      height: 400px;
+      object-fit: cover;
+      width: 100%;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .carousel-caption {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      padding: 1rem;
+    }

@@ -3,7 +3,7 @@
         width: 100%;
         background: linear-gradient(-45deg, #ff6ec4, #7873f5, #42e695, #fdd819);
         background-size: 400% 400%;
-        animation: gradientMove 15s ease infinite;
+        animation: gradientMove 4s ease-in-out infinite;
         display: flex;
         justify-content: center;
         align-items: center;
