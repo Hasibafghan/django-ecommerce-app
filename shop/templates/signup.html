@@ -16,7 +16,6 @@
     {% if messages %}
 
     {% endif %}
-    
     <section class="vh-100 gradient-bg">
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -31,11 +30,12 @@
                       <div class="alert border border-danger btn-outline-1 alert-{{ message.tags }}">{{ message }}</div>
                     {% endfor %}
                   </div>
-                  <!-- login form -->
+                  <!-- Register form -->
                   <form action="" method="POST">
                     {% csrf_token %}
+                    {{form.as_p}}
 
-                    <div class="form-outline form-white mb-4">
+                    {% comment %} <div class="form-outline form-white mb-4">
                       <input type="text" id="typeEmailX" name="username" class="form-control form-control-lg" required />
                       <label class="form-label" for="typeEmailX">Username</label>
                     </div>
@@ -47,9 +47,9 @@
 
                     <p class="small mb-5 pb-lg-2">
                       <a class="text-white-50" href="#!">Forgot password?</a>
-                    </p>
+                    </p> {% endcomment %}
 
-                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                    <button class="btn btn-outline-light btn-lg px-5" type="submit">submit</button>
                   </form>
                   <!-- login form end -->
 
@@ -59,13 +59,7 @@
                     <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
                   </div>
                 </div>
-
-                <div>
-                  <p class="mb-0">
-                    Don't have an account?
-                    <a href="#!" class="text-white-50 fw-bold">Sign Up</a>
-                  </p>
-                </div>
+                
               </div>
             </div>
           </div>
@@ -73,7 +67,6 @@
       </div>
     </section>
     <!-- MDB JS (optional for dynamic behavior) -->
-    <script src="{% static 'js/scripts.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/mdb-ui-kit@6.4.0/js/mdb.min.js"></script>
   </body>
 </html>
