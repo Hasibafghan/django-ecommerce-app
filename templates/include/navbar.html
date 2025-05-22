@@ -1,4 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+{% load static%}
+<link rel="stylesheet" href="{% static 'css/login_gradient.css' %}">
+<nav class="navbar navbar-expand-lg navbar-light bg-light ">
   <div class="container px-4 px-lg-5">
     <a class="navbar-brand" href="#!">Start Bootstrap</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -40,6 +42,7 @@
           <form method="POST" action="{% url 'logout' %}">
             {% csrf_token %}
             <button class="btn btn-outline-dark" type="submit"><i class="bi-person-fill me-1"></i>Logout</button>
+            <span class="navbar-text mx-2"><i class="bi-person-fill me-1"></i>Hi {{ user.username }}</span>
           </form>
         </div>
       {% else %}
@@ -47,7 +50,7 @@
           <a href="{% url 'login' %}" class="btn btn-outline-dark"><i class="bi-person-fill me-1"></i>Login</a>
         </div>
         <div class="d-flex mx-1 my-2">
-          <a href="{% url 'signup' %}" class="btn btn-outline-dark"><i class="bi-person-fill me-1"></i>Regiseter</a>
+          <a href="{% url 'signup' %}" class="btn btn-outline-dark"><i class="bi-person-fill me-1"></i>Sign Up</a>
         </div>
       {% endif %}
     </div>

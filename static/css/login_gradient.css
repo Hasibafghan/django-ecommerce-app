@@ -1,24 +1,22 @@
 .gradient-bg {
-        height: 100vh ;
-        width: 100%;
-        background: linear-gradient(-45deg, #ff6ec4, #7873f5, #42e695, #fdd819);
-        background-size: 400% 400%;
-        animation: gradientMove 4s ease-in-out infinite;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        text-align: center;
-      }
-      
-      @keyframes gradientMove {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      }
+  height: 100%; /* Ensures full viewport height */
+  width: 100%;
+  background: linear-gradient(-45deg, #ff6ec4, #7873f5, #42e695, #fdd819);
+  background-size: 400% 400%;
+  animation: gradientMove 10s ease-in-out infinite;
+}
+
+/* Keep animation */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.centered-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px); /* subtract navbar height if needed */
+}
+
