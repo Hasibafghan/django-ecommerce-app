@@ -7,6 +7,20 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Shop Homepage - Start Bootstrap Template</title>
+    
+    <!-- footer always be at the end -->
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .content {
+        flex: 1; /* takes all available space */
+      }
+    </style>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
@@ -35,9 +49,9 @@
     {% endblock %}
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
+    <footer class="py-5 bg-dark mt-auto" style="width: 100%;">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2025</p>
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2025</p>
       </div>
     </footer>
 

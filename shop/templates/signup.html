@@ -35,57 +35,37 @@
                   <form action="" method="POST">
                     {% csrf_token %}
 
-                      <div class="form-outline form-white mb-4">
-                        {{ form.username|add_class:'form-control form-control-lg' }}
-                        <label class="form-label" for="{{ form.username.id_for_label }}">User Name</label>
-                      </div>
+                    <div class="form-outline form-white mb-4">
+                      {{ form.username|add_class:'form-control form-control-lg' }}
+                      <label class="form-label" for="{{ form.username.id_for_label }}">User Name</label>
+                    </div>
 
-                      <div class="form-outline form-white mb-4">
-                        {{ form.first_name|add_class:'form-control form-control-lg' }}
-                        <label class="form-label" for="{{ form.first_name.id_for_label }}">First Name</label>
-                      </div>
+                    <div class="form-outline form-white mb-4">
+                      {{ form.first_name|add_class:'form-control form-control-lg' }}
+                      <label class="form-label" for="{{ form.first_name.id_for_label }}">First Name</label>
+                    </div>
 
-                      <div class="form-outline form-white mb-4">
-                        {{ form.last_name|add_class:'form-control form-control-lg' }}
-                        <label class="form-label" for="{{ form.last_name.id_for_label }}">Last Name</label>
-                      </div>
+                    <div class="form-outline form-white mb-4">
+                      {{ form.last_name|add_class:'form-control form-control-lg' }}
+                      <label class="form-label" for="{{ form.last_name.id_for_label }}">Last Name</label>
+                    </div>
 
-                      <div class="form-outline form-white mb-4">
-                        {{ form.email|add_class:'form-control form-control-lg' }}
-                        <label class="form-label" for="{{ form.email.id_for_label }}">Email</label>
-                      </div>
+                    <div class="form-outline form-white mb-4">
+                      {{ form.email|add_class:'form-control form-control-lg' }}
+                      <label class="form-label" for="{{ form.email.id_for_label }}">Email</label>
+                    </div>
 
-                      <div class="form-outline form-white mb-4 position-relative">
-                        {{ form.password1|add_class:'form-control form-control-lg'|attr:'type=password' }}
-                        <label class="form-label" for="{{ form.password1.id_for_label }}">Password</label>
-                        <span class="position-absolute top-50 end-0 translate-middle-y me-3" style="cursor:pointer;" onclick="togglePassword('id_password1', this)">
-                          <i class="fa fa-eye text-white-50"></i>
-                        </span>
-                      </div>
+                    <div class="form-outline form-white mb-4 position-relative">
+                      {{ form.password1|add_class:'form-control form-control-lg'|attr:'type=password' }}
+                      <label class="form-label" for="{{ form.password1.id_for_label }}">Password</label>
+                      <span class="position-absolute top-50 end-0 translate-middle-y me-3" style="cursor:pointer;" onclick="togglePassword('id_password1', this)"><i class="fa fa-eye text-white-50"></i></span>
+                    </div>
 
-                      <div class="form-outline form-white mb-4 position-relative">
-                        {{ form.password2|add_class:'form-control form-control-lg'|attr:'type=password' }}
-                        <label class="form-label" for="{{ form.password2.id_for_label }}">Confirm Password</label>
-                        <span class="position-absolute top-50 end-0 translate-middle-y me-3" style="cursor:pointer;" onclick="togglePassword('id_password2', this)">
-                          <i class="fa fa-eye text-white-50"></i>
-                        </span>
-                      </div>
-
-                      <script>
-                      function togglePassword(fieldId, iconSpan) {
-                        const input = document.getElementById(fieldId);
-                        const icon = iconSpan.querySelector('i');
-                        if (input.type === "password") {
-                          input.type = "text";
-                          icon.classList.remove('fa-eye');
-                          icon.classList.add('fa-eye-slash');
-                        } else {
-                          input.type = "password";
-                          icon.classList.remove('fa-eye-slash');
-                          icon.classList.add('fa-eye');
-                        }
-                      }
-                      </script>
+                    <div class="form-outline form-white mb-4 position-relative">
+                      {{ form.password2|add_class:'form-control form-control-lg'|attr:'type=password' }}
+                      <label class="form-label" for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                      <span class="position-absolute top-50 end-0 translate-middle-y me-3" style="cursor:pointer;" onclick="togglePassword('id_password2', this)"><i class="fa fa-eye text-white-50"></i></span>
+                    </div>
 
                     <p class="small mb-5 pb-lg-2">
                       <a class="text-white-50" href="#!">Forgot password?</a>
@@ -107,6 +87,22 @@
         </div>
       </div>
     </section>
+    <script>
+      function togglePassword(inputId, el) {
+        const input = document.getElementById(inputId)
+        const icon = el.querySelector('i')
+      
+        if (input.type === 'password') {
+          input.type = 'text'
+          icon.classList.remove('fa-eye-slash')
+          icon.classList.add('fa-eye')
+        } else {
+          input.type = 'password'
+          icon.classList.remove('fa-eye')
+          icon.classList.add('fa-eye-slash')
+        }
+      }
+    </script>
     <!-- MDB JS (optional for dynamic behavior) -->
     <script src="https://cdn.jsdelivr.net/npm/mdb-ui-kit@6.4.0/js/mdb.min.js"></script>
   </body>

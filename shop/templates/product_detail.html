@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-0 mb-4">
+                    <div class="row g-0">
+                        <div class="col-md-5 d-flex align-items-center justify-content-center bg-light rounded-start">
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded" style="max-height: 350px; object-fit: contain;" />
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body p-4">
+                                <h2 class="card-title mb-3">{{ product.name }}</h2>
+                                <p class="card-text text-muted mb-4">{{ product.description }}</p>
+                                <h4 class="text-success mb-4"><strong>${{ product.price }}</strong></h4>
+                                <h4 class="text-success mb-4"><strong>${{ product.discount }}</strong></h4>
+                                
+                                {% comment %} {% if user.is_authenticated %}
+                                    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary btn-lg px-4">Add to Cart</a>
+                                {% else %}
+                                    <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg px-4">Login to Purchase</a>
+                                {% endif %}
+                                 {% endcomment %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

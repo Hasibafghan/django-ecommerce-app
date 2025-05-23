@@ -16,7 +16,7 @@
     {% if messages %}
 
     {% endif %}
-    
+
     <section class="vh-100 gradient-bg">
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -35,14 +35,16 @@
                   <form action="" method="POST">
                     {% csrf_token %}
 
-                    <div class="form-outline form-white mb-4">
+                    <div class="form-outline form-white mb-4 position-relative">
                       <input type="text" id="typeEmailX" name="username" class="form-control form-control-lg" required />
                       <label class="form-label" for="typeEmailX">Username</label>
+                      <span class="position-absolute top-50 end-0 translate-middle-y me-3" style="cursor:pointer;" onclick="togglePassword('typeEmailX', this)"><i class="fa fa-eye-slash"></i></span>
                     </div>
 
-                    <div class="form-outline form-white mb-4">
+                    <div class="form-outline form-white mb-4 position-relative">
                       <input type="password" id="typePasswordX" name="password" class="form-control form-control-lg" required />
                       <label class="form-label" for="typePasswordX">Password</label>
+                      <span class="position-absolute top-50 end-0 translate-middle-y me-3" style="cursor:pointer;" onclick="togglePassword('typePasswordX', this)"><i class="fa fa-eye-slash"></i></span>
                     </div>
 
                     <p class="small mb-5 pb-lg-2">
@@ -73,6 +75,28 @@
       </div>
     </section>
     <!-- MDB JS (optional for dynamic behavior) -->
+    <script>
+      function togglePassword(inputId, el) {
+      const input = document.getElementById(inputId)
+      const icon = el.querySelector('i')
+
+      if (input.type === 'password') {
+        input.type = 'text'
+        icon.classList.remove('fa-eye-slash')
+        icon.classList.add('fa-eye')
+      } else {
+        input.type = 'password'
+        icon.classList.remove('fa-eye')
+        icon.classList.add('fa-eye-slash')
+      }
+      }
+      // Set opacity 0.5 for all eye icons on page load
+      document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.fa-eye, .fa-eye-slash').forEach(function(icon) {
+        icon.style.opacity = '0.5';
+      });
+      });
+    </script>
     <script src="{% static 'js/scripts.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/mdb-ui-kit@6.4.0/js/mdb.min.js"></script>
   </body>

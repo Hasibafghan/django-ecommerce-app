@@ -35,33 +35,40 @@ def logout_user(request):
     return redirect('products')
 
 
+# def signup_user(request):
+#     if request.method == 'POST':
+#         form = UserRegistrationForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request , 'Account created successfully')
+#             return redirect('login')
+#         else:
+#             messages.error(request , 'Error creating account')
+#     else:
+#         form = UserRegistrationForm()
+#     return render(request, 'signup.html', {'form': form})
+
+# signup success auto login
 def signup_user(request):
+    form = UserRegistrationForm()
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request , 'Account created successfully')
-            return redirect('login')
+            # username = form.cleaned_data['username']
+            # password1 = form.cleaned_data['password1']
+            # user = authenticate(request, username=username, password=password1)
+            # login(request, user)
+            messages.success(request,"Done!")
+            return redirect('products')
         else:
-            messages.error(request , 'Error creating account')
+            messages.error(request,"Error!")
+            return redirect('signup')   
     else:
-        form = UserRegistrationForm()
-    return render(request, 'signup.html', {'form': form})
+        return render(request , 'signup.html' , {'form' : form})
+    
 
-# def signup_user(request):
-#     form = UserRegistrationForm()
-#     if request.method == 'POST':
-#         form = UserRegistrationForm(request.POST)
-#         if form.is_valid:
-#             form.save()
-#             username = form.cleaned_data['username']
-#             password1 = form.cleaned_data['password1']
-#             user = authenticate(request, username=username, password=password1)
-#             login(request, user)
-#             messages.success(request,"Done!")
-#             return redirect('products')
-#         else:
-#             messages.error(request,"Error!")
-#             return redirect('signup')   
-#     else:
-#         return render(request , 'signup.html' , {'form' : form})
+def product_detail(request,pk):
+    # product = Product.objects.get(pk=pk)
+    product = get_object_or_404(Product, pk=pk)
+    return render(request , 'product_detail.html' , {'product': product})
