@@ -47,3 +47,21 @@ def signup_user(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'signup.html', {'form': form})
+
+# def signup_user(request):
+#     form = UserRegistrationForm()
+#     if request.method == 'POST':
+#         form = UserRegistrationForm(request.POST)
+#         if form.is_valid:
+#             form.save()
+#             username = form.cleaned_data['username']
+#             password1 = form.cleaned_data['password1']
+#             user = authenticate(request, username=username, password=password1)
+#             login(request, user)
+#             messages.success(request,"Done!")
+#             return redirect('products')
+#         else:
+#             messages.error(request,"Error!")
+#             return redirect('signup')   
+#     else:
+#         return render(request , 'signup.html' , {'form' : form})

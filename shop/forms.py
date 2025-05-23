@@ -14,8 +14,8 @@ class UserRegistrationForm(UserCreationForm):
         widget=forms.PasswordInput(attrs={
             'class': 'form-control',
             'placeholder': 'Password must be at least 8 characters',
-            'name': 'password',
-            'type': 'password'
+            # 'name': 'password',
+            # 'type': 'password'
         })
     )
     password2 = forms.CharField(
@@ -24,8 +24,8 @@ class UserRegistrationForm(UserCreationForm):
         widget=forms.PasswordInput(attrs={
             'class': 'form-control',
             'placeholder': 'Re-enter password',
-            'name': 'password',
-            'type': 'password'
+            # 'name': 'password',
+            # 'type': 'password'
         })
     )
 
