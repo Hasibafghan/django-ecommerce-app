@@ -41,8 +41,9 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django_cleanup.apps.CleanupConfig',
     # My Apps
-    'shop',
-]
+    'shop.apps.ShopConfig',
+    'cart.apps.CartConfig',
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
