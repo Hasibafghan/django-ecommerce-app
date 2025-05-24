@@ -10,17 +10,32 @@
                         </div>
                         <div class="col-md-7">
                             <div class="card-body p-4">
-                                <h2 class="card-title mb-3">{{ product.name }}</h2>
-                                <p class="card-text text-muted mb-4">{{ product.description }}</p>
-                                <h4 class="text-success mb-4"><strong>${{ product.price }}</strong></h4>
-                                <h4 class="text-success mb-4"><strong>${{ product.discount }}</strong></h4>
-                                
-                                {% comment %} {% if user.is_authenticated %}
-                                    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary btn-lg px-4">Add to Cart</a>
-                                {% else %}
-                                    <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg px-4">Login to Purchase</a>
-                                {% endif %}
-                                 {% endcomment %}
+                                    {% if product.is_in_discount %}
+                                        <div class="badge bg-dark bg-opacity-50 text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Special offer</div>
+                                    {% endif %}
+                                    <!-- Product details -->
+                                    <div class="text-center">
+                                        {% for i in "12345"|slice:":product.gave_star" %}
+                                            <div class="bi-star-fill text-warning d-inline"></div>
+                                        {% endfor %}
+                                        <!-- Product name -->
+                                        <h5 class="fw-bolder">{{ product.name }}</h5>
+                                        <p>{{ product.description }}</p>
+                                        <!-- Product price -->
+                                        {% if product.is_in_discount %}
+                                            <p class="text-decoration-line-through">{{ product.price }}$</p>
+                                            <p class="">{{ product.discount }}$</p>
+                                        {% else %}
+                                            <p>{{ product.price }}$</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <!-- Product actions -->
+                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                    <div class="text-center">
+                                        <a class="btn btn-outline-dark mt-auto" href="">Add Card</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -28,4 +43,4 @@
             </div>
         </div>
     </div>
-    {% endblock %}
+{% endblock %}

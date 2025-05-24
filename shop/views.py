@@ -72,3 +72,13 @@ def product_detail(request,pk):
     # product = Product.objects.get(pk=pk)
     product = get_object_or_404(Product, pk=pk)
     return render(request , 'product_detail.html' , {'product': product})
+
+
+def category_products(request, category_name):
+    try:
+        category = get_object_or_404(Category, name=category_name)
+        products = Product.objects.filter(category=category)
+        return render(request , 'category_products.html' , {'products': products , 'category': category})
+    except Category.DoesNotExist:
+        messages.error(request , 'Category not found')
+        return redirect('products')
