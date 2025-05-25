@@ -31,9 +31,12 @@
                                     </div>
                                 </div>
                                 <!-- Product actions -->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="card-footer p-4 pt-0 border-top-0 bg-srent">
                                     <div class="text-center">
-                                        <a class="btn btn-outline-dark mt-auto" href="">Add Card</a>
+                                        <label for="quantity">Quantity:</label>
+                                        <input type="number" id="quantity" name="quantity" value="1" min="1" style="width: 60px;">
+                                        <button id="add-to-cart-btn" class="btn btn-outline-dark mt-auto">Add to Cart</button>
+                                        <div id="add-to-cart-message" style="margin-top:10px;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -43,4 +46,36 @@
             </div>
         </div>
     </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#add-to-cart-btn').click(function(e) {
+        e.preventDefault();
+        var quantity = $('#quantity').val();
+        var item_id = '{{ product.id }}';
+        var csrftoken = '{{ csrf_token }}';
+
+        $.ajax({
+            url: "{% url 'add_to_cart' %}",
+            type: "POST",
+            data: {
+                'item_id': item_id,
+                'quantity': quantity,
+                'csrfmiddlewaretoken': csrftoken
+            },
+            success: function(response) {
+                $('#add-to-cart-message').html('<div class="alert alert-success">Product added to cart!</div>');
+                // Update cart quantity badge
+                var currentCount = parseInt($('#cart-quantity-badge').text());
+                var newCount = currentCount + parseInt(quantity);
+                $('#cart-quantity-badge').text(newCount);
+            },
+            error: function(xhr, status, error) {
+                $('#add-to-cart-message').html('<div class="alert alert-danger">Error adding product to cart.</div>');
+            }
+        });
+    });
+});
+</script>
 {% endblock %}

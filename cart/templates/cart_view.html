@@ -22,20 +22,46 @@
     </div>
   </header>
 
-  <div class="container px-4 px-lg-5 mt-1">
+  <div class="container px-4 px-lg-5 mt-4" >
     <div class="row justify-content-center">
       <div class="col-12 col-md-10 col-lg-12">
-        {% comment %} <p class="m-5">
-          Welcome to our shop! We are committed to providing you with the best products and services. Stay tuned for more updates about our team and mission.
-          At odio rerum quibusdam! Veniam sequi ab, magni, nisi quidem omnis laboriosam delectus expedita eos eligendi illum nihil quod ipsum incidunt cumque repellat ullam ex corrupti optio. Accusantium, eligendi repudiandae.
-          Ut accusantium alias voluptatibus quibusdam ab exercitationem commodi aperiam nisi ipsam, placeat qui maiores ullam dolor reiciendis, dolores veniam saepe ipsum ipsa quos distinctio. Neque sunt atque repellendus! Magni, tempore?
-          Atque nam saepe voluptatibus ipsa repellat itaque labore. Obcaecati repudiandae veniam illo sequi sint culpa, sed quia minima aliquam reprehenderit corrupti recusandae minus nobis accusantium eius, vitae unde, cupiditate a!
-          Rem quidem cumque corporis a repellat, quibusdam quo quae voluptatem laudantium adipisci eaque veniam deserunt blanditiis. Vel qui ab iste! Repellat eveniet, natus quos quidem deserunt illo consequatur illum? Numquam?
-          Nemo porro voluptatem ab distinctio consequuntur voluptatibus ipsam magnam eligendi, in, repellat itaque tenetur inventore necessitatibus ratione provident! Veniam, ducimus! Possimus aperiam reiciendis, esse nesciunt aliquid ipsam aspernatur vel praesentium.
-          Quam atque ipsam, distinctio adipisci accusantium maiores vitae nihil amet cum. Corporis, officia quam, maxime iusto accusamus voluptates tenetur perferendis aliquam quidem beatae at? Voluptate aut incidunt sint nisi adipisci.
-          Harum, illum. Est nisi, fugit eveniet beatae praesentium a aliquam, necessitatibus impedit deserunt reiciendis provident quo quas eius vitae officiis temporibus vero atque laboriosam, facere consectetur sapiente adipisci. Porro, autem?
-          Ducimus molestiae nesciunt quod optio nihil praesentium? Quisquam excepturi, magnam nam distinctio ipsa vel. Distinctio repellat, id repellendus ducimus consequuntur impedit sit dolore earum exercitationem voluptatem, fuga ratione, optio totam.
-        </p> {% endcomment %}
+        <div class="card shadow-lg border-0 mb-4">
+          <div class="card-body p-4">
+            {% if cart_items %}
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total Quantity Price</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for item in cart_items %}
+                    <tr>
+                      <td><img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="max-height: 50px; max-width: 50px;"></td>
+                      <td>{{ item.product.name }}</td>
+                      <td>${{ item.product.price }}</td>
+                      <td>{{ item.quantity }}</td>
+                      <td>${{ item.total_price }}</td>
+                      <td><a href="" class="btn btn-danger">Remove</a></td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+
+              <h3>Total: ${{ total_price }}</h3>
+
+              {% comment %} <a href="{% url 'checkout' %}" class="btn btn-success">Proceed to Checkout</a> {% endcomment %}
+
+            {% else %}
+              <p>Your cart is empty.</p>
+            {% endif %}
+          </div>
+        </div>
       </div>
     </div>
   </div>
