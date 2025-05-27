@@ -6,6 +6,6 @@ setTimeout(function () {
         container.style.opacity = '0'
         setTimeout(function () {
             container.style.display = 'none'
-        }, 700)
+        }, 1000) //
     }
 }, 2500)
