@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from shop.models import Product
 
+
 def view_cart(request):
     cart = request.session.get('cart', {})
     cart_items = []
     total_price = 0
-
+    
     for item_id, quantity in cart.items():
         product = get_object_or_404(Product, pk=item_id)
         if product.is_in_discount:
@@ -16,6 +17,7 @@ def view_cart(request):
         total_price += total
         cart_items.append({'product': product, 'quantity': quantity, 'total_price': total, 'unit_price': unit_price})
     return render(request, 'cart_view.html', {'cart_items': cart_items, 'total_price': total_price})
+
 
 def add_to_cart(request):
     if request.method == "POST":
@@ -33,6 +35,7 @@ def add_to_cart(request):
     else:
         return render(request, 'add_to_cart.html')
 
+
 def remove_from_cart(request, item_id):
     cart = request.session.get('cart', {})
     if item_id in cart:
@@ -41,4 +44,17 @@ def remove_from_cart(request, item_id):
     return redirect('view_cart')
 
 def update_cart_item(request, item_id):
-    pass
+    if request.method == "POST":
+        quantity = int(request.POST.get('quantity', 1))
+        cart = request.session.get('cart', {})
+
+        if item_id in cart:
+            if quantity > 0:
+                cart[item_id] = quantity
+            else:
+                del cart[item_id]
+        
+        request.session['cart'] = cart
+        return redirect('view_cart')
+    else:
+        return render(request, 'cart_view.html', {'item_id': item_id})

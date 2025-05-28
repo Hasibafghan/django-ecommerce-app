@@ -8,3 +8,4 @@ urlpatterns = [
     path('update/<str:item_id>/', views.update_cart_item, name='update_cart_item'),
 
 ]
+
