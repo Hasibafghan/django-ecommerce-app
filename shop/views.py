@@ -3,7 +3,8 @@ from . models import Product , Category , Customer , Order
 from django.contrib.auth import authenticate , login , logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import UserRegistrationForm , UpdateUserForm
+from .forms import UserRegistrationForm , UpdateUserForm , PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 
 def products(request):
@@ -53,6 +54,30 @@ def update_user(request):
         return render(request, 'update_user.html', {'form': update_form})
     else:
         messages.error(request, 'You need to be logged in to update your profile')
+        return redirect('login')
+
+
+
+def update_password(request):
+    if request.user.is_authenticated:
+        current_user = request.user
+        if request.method == 'POST':
+            form = PasswordChangeForm(current_user, request.POST)
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)  # Prevents logout after password change
+                messages.success(request, 'Password successfully changed')
+                return redirect('products')
+            else:
+                for field, errors in form.errors.items():
+                    for error in errors:
+                        messages.error(request, f"{field.capitalize()}: {error}")
+                return render(request, 'update_password.html', {'form': form})
+        else:
+            form = PasswordChangeForm(current_user)
+            return render(request, 'update_password.html', {'form': form})
+    else:
+        messages.error(request, 'You need to be logged in to change your password')
         return redirect('login')
 
 

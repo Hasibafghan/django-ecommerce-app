@@ -43,9 +43,9 @@
       
             
         <div class="d-flex mx-1 my-2">
-          <a href="{% url 'logout' %}" class="btn btn-outline-dark"><i class="bi-person-fill me-1"></i>Log out</a>
+          <a href="{% url 'logout' %}" class="btn btn-outline-dark me-2"><i class="bi-person-fill me-1"></i>Log out</a>
           
-          <a href="{% url 'update_user' %}" class="btn btn-outline-dark me-2"><i class="bi-person-fill me-1"></i>Edit Profile</a>
+          <a href="{% url 'update_user' %}" class="btn btn-outline-dark me-1"><i class="bi-person-fill me-1"></i>Edit Profile</a>
           <span class="navbar-text mx-2"><i class="bi-person-fill me-1"></i>Hi {{ user.username }}</span>
         </div>
       {% else %}

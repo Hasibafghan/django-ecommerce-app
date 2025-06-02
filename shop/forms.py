@@ -1,10 +1,40 @@
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm , UserChangeForm
+from django.contrib.auth.forms import UserCreationForm , UserChangeForm , SetPasswordForm
 from django import forms
 
-from django import forms
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserChangeForm
+
+# we use widget tweaks to add bootstrap classes to the form fields
+class UserRegistrationForm(UserCreationForm):
+    first_name = forms.CharField(max_length=30,label='First Name' , )
+    last_name = forms.CharField(max_length=30,label='Last Name' , )
+    email= forms.EmailField(max_length=30,label='Email', ) # widget=forms.TextInput(attrs={class:'form-control' , 'placeholder':'Enter your username' , 'name':'username'})
+    username= forms.CharField(max_length=30,label='Username' , ) 
+    password1 = forms.CharField(
+        max_length=30,
+        label='Password',
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Password must be at least 8 characters',
+            # 'name': 'password',
+            # 'type': 'password'
+        })
+    )
+    password2 = forms.CharField(
+        max_length=30,
+        label='Confirm Password',
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Re-enter password',
+            # 'name': 'password',
+            # 'type': 'password'
+        })
+    )
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email', 'username', 'password1', 'password2')
+
+
 
 class UpdateUserForm(UserChangeForm):
     first_name = forms.CharField(
@@ -47,19 +77,25 @@ class UpdateUserForm(UserChangeForm):
     def __init__(self, *args, **kwargs):
         super(UpdateUserForm, self).__init__(*args, **kwargs)
         # Optional: remove password field from the form
-        # if 'password' in self.fields:
-        #     self.fields.pop('password')
+        if 'password' in self.fields:
+            self.fields.pop('password')
 
 
-# we use widget tweaks to add bootstrap classes to the form fields
-class UserRegistrationForm(UserCreationForm):
-    first_name = forms.CharField(max_length=30,label='First Name' , )
-    last_name = forms.CharField(max_length=30,label='Last Name' , )
-    email= forms.EmailField(max_length=30,label='Email', ) # widget=forms.TextInput(attrs={class:'form-control' , 'placeholder':'Enter your username' , 'name':'username'})
-    username= forms.CharField(max_length=30,label='Username' , ) 
-    password1 = forms.CharField(
+
+class PasswordChangeForm(SetPasswordForm):
+    # old_password = forms.CharField(
+    #     max_length=30,
+    #     label='Old Password',
+    #     widget=forms.PasswordInput(attrs={
+    #         'class': 'form-control',
+    #         'placeholder': 'Enter your old password',
+    #         # 'name': 'password',
+    #         # 'type': 'password'
+    #     })
+    # )
+    new_password1 = forms.CharField(
         max_length=30,
-        label='Password',
+        label='New Password',
         widget=forms.PasswordInput(attrs={
             'class': 'form-control',
             'placeholder': 'Password must be at least 8 characters',
@@ -67,7 +103,7 @@ class UserRegistrationForm(UserCreationForm):
             # 'type': 'password'
         })
     )
-    password2 = forms.CharField(
+    new_password2 = forms.CharField(
         max_length=30,
         label='Confirm Password',
         widget=forms.PasswordInput(attrs={
@@ -80,4 +116,4 @@ class UserRegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'username', 'password1', 'password2')
+        fields = ( 'new_password1', 'new_password2')
