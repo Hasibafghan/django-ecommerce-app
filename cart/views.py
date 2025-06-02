@@ -6,17 +6,40 @@ def view_cart(request):
     cart = request.session.get('cart', {})
     cart_items = []
     total_price = 0
-    
+
     for item_id, quantity in cart.items():
-        product = get_object_or_404(Product, pk=item_id)
-        if product.is_in_discount:
-            unit_price = product.discount
-        else:
-            unit_price = product.price
-        total = unit_price * quantity
-        total_price += total
-        cart_items.append({'product': product, 'quantity': quantity, 'total_price': total, 'unit_price': unit_price})
-    return render(request, 'cart_view.html', {'cart_items': cart_items, 'total_price': total_price})
+        try:
+            # Ensure item_id is valid integer for Product lookup
+            product = get_object_or_404(Product, pk=int(item_id))
+            
+            # Convert quantity to integer
+            quantity = int(quantity)
+            if quantity <= 0:
+                continue  # skip invalid or zero-quantity items
+
+            # Choose correct price
+            unit_price = product.discount if product.is_in_discount else product.price
+
+            # Calculate totals
+            total = unit_price * quantity
+            total_price += total
+
+            # Append item details to the cart list
+            cart_items.append({
+                'product': product,
+                'quantity': quantity,
+                'unit_price': unit_price,
+                'total_price': total
+            })
+
+        except (ValueError, TypeError):
+            # Skip items with invalid ID or quantity
+            continue
+
+    return render(request, 'cart_view.html', {
+        'cart_items': cart_items,
+        'total_price': total_price
+    })
 
 
 def add_to_cart(request):

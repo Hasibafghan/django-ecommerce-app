@@ -1,13 +1,20 @@
 from django.shortcuts import render  , redirect , get_object_or_404 
 from . models import Product , Category , Customer , Order
 from django.contrib.auth import authenticate , login , logout
+from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm , UpdateUserForm
 
 
 def products(request):
     products = Product.objects.all()
     return render(request , 'index.html' , {'products': products})
+
+
+def category_view(request):
+    categories = Category.objects.all()
+    return render(request , 'category_view.html' , {'categories' : categories})
+
 
 
 def about_us(request):
@@ -33,6 +40,20 @@ def logout_user(request):
     logout(request)
     messages.success(request , 'Logout successfully')
     return redirect('products')
+
+def update_user(request):
+    if request.user.is_authenticated:
+        user = User.objects.get(id=request.user.id)
+        update_form = UpdateUserForm(request.POST or None , instance=user)
+        if update_form.is_valid():
+            update_form.save()
+            login(request , user)
+            messages.success(request , 'Profile updated successfully')
+            return redirect('products')
+        return render(request, 'update_user.html', {'form': update_form})
+    else:
+        messages.error(request, 'You need to be logged in to update your profile')
+        return redirect('login')
 
 
 # def signup_user(request):

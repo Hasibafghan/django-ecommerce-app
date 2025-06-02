@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+
+{% block content%}
+  <header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+      <div class="text-center text-white">
+        <h1 class="display-4 fw-bolder">About us!</h1>
+        <p class="lead fw-normal text-white-50 mb-0">You gonna find out soon!</p>
+      </div>
+    </div>
+  </header>
+ <!-- update_user.html -->
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center">
+          <h3 class="mb-0">Update Your Profile</h3>
+        </div>
+        <div class="card-body p-4">
+          <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              {{ form.username.label_tag }}
+              {{ form.username|add_class:"form-control" }}
+            </div>
+            <div class="row mb-3">
+              <div class="col">
+                {{ form.first_name.label_tag }}
+                {{ form.first_name|add_class:"form-control" }}
+              </div>
+              <div class="col">
+                {{ form.last_name.label_tag }}
+                {{ form.last_name|add_class:"form-control" }}
+              </div>
+            </div>
+            <div class="mb-3">
+              {{ form.email.label_tag }}
+              {{ form.email|add_class:"form-control" }}
+            </div>
+            {% if form.password %}
+            <div class="mb-3">
+              {{ form.password.label_tag }}
+              {{ form.password|add_class:"form-control" }}
+              <small class="form-text text-muted">{{ form.password.help_text }}</small>
+            </div>
+            {% endif %}
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-lg">Update Profile</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+{% endblock %}

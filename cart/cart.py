@@ -9,4 +9,11 @@ class Cart:
         self.cart = cart
 
     def total_quantity(self):
-        return sum(self.cart.values())
+        """
+        Safely sums up item quantities in the cart,
+        converting string values to integers and skipping invalid ones.
+        """
+        return sum(
+            int(qty) for qty in self.cart.values()
+            if qty is not None and str(qty).isdigit()
+        )
