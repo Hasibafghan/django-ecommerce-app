@@ -81,37 +81,39 @@ def update_password(request):
         return redirect('login')
 
 
-# def signup_user(request):
-#     if request.method == 'POST':
-#         form = UserRegistrationForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request , 'Account created successfully')
-#             return redirect('login')
-#         else:
-#             messages.error(request , 'Error creating account')
-#     else:
-#         form = UserRegistrationForm()
-#     return render(request, 'signup.html', {'form': form})
-
-# signup success auto login
 def signup_user(request):
-    form = UserRegistrationForm()
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            # username = form.cleaned_data['username']
-            # password1 = form.cleaned_data['password1']
-            # user = authenticate(request, username=username, password=password1)
-            # login(request, user)
-            messages.success(request,"Done!")
-            return redirect('products')
+            messages.success(request , 'Account created successfully')
+            return redirect('login')
         else:
-            messages.error(request,"Error!")
-            return redirect('signup')   
+            for field, errors in form.errors.items():
+                    for error in errors:
+                        messages.error(request, f"{field.capitalize()}: {error}")
     else:
-        return render(request , 'signup.html' , {'form' : form})
+        form = UserRegistrationForm()
+    return render(request, 'signup.html', {'form': form})
+
+# signup success auto login
+# def signup_user(request):
+#     form = UserRegistrationForm()
+#     if request.method == 'POST':
+#         form = UserRegistrationForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             # username = form.cleaned_data['username']
+#             # password1 = form.cleaned_data['password1']
+#             # user = authenticate(request, username=username, password=password1)
+#             # login(request, user)
+#             messages.success(request,"Done!")
+#             return redirect('products')
+#         else:
+#             messages.error(request,"Error!")
+#             return redirect('signup')   
+#     else:
+#         return render(request , 'signup.html' , {'form' : form})
     
 
 def product_detail(request,pk):

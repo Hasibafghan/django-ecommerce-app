@@ -2,7 +2,6 @@
 {% load widget_tweaks %}
 {% load static %}
 
-
 {% block content%}
   <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
@@ -49,11 +48,11 @@
             </div>
             {% endif %}
             <div class="d-grid">
-              <button type="submit" class="btn btn-primary btn-lg">Update Profile</button>
+              <button type="submit" class="btn btn-primary btn-lg">Submit</button>
             </div>
           </form>
           <a href="{% url 'change_password' %}">
-            <button class="btn btn-primary btn-lg mt-1 d-block m-auto">Change Password</button>
+            <button class="btn btn-primary btn-lg mt-3 d-block m-auto">Change Password</button>
           </a>
         </div>
       </div>
