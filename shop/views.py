@@ -1,10 +1,35 @@
 from django.shortcuts import render  , redirect , get_object_or_404 
-from . models import Product , Category , Customer , Order
+from . models import Product , Category , Profile , Customer , Order
 from django.contrib.auth import authenticate , login , logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import UserRegistrationForm , UpdateUserForm , PasswordChangeForm
+from .forms import UserRegistrationForm , UpdateUserForm , PasswordChangeForm , UpdateProfileForm
 from django.contrib.auth import update_session_auth_hash
+
+
+
+def update_info(request):
+    if not request.user.is_authenticated:
+        messages.error(request, 'First you must login')
+        return redirect('login')
+
+    try:
+        current_user = Profile.objects.get(user=request.user)
+    except Profile.DoesNotExist:
+        messages.error(request, 'Profile not found')
+        return redirect('products')  # or appropriate redirect
+    
+    if request.method == 'POST':
+        form = UpdateProfileForm(request.POST, instance=current_user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('products')
+    else:
+        form = UpdateProfileForm(instance=current_user)
+    
+    return render(request, 'update_info.html', {'form': form})
+
 
 
 def products(request):

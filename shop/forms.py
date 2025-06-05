@@ -117,3 +117,16 @@ class PasswordChangeForm(SetPasswordForm):
     class Meta:
         model = User
         fields = ( 'new_password1', 'new_password2')
+
+class UpdateProfileForm(forms.ModelForm):
+    phone = forms.CharField()
+    address1 = forms.CharField()
+    address2 = forms.CharField()
+    city = forms.CharField()
+    state = forms.CharField()
+    zip_code = forms.CharField()
+    country = forms.CharField()
+
+    class Meta:
+        model = User
+        fields = ('phone', 'address1', 'address2', 'city', 'state', 'zip_code', 'country')
