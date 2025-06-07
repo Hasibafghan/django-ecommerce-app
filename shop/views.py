@@ -5,6 +5,31 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import UserRegistrationForm , UpdateUserForm , PasswordChangeForm , UpdateProfileForm
 from django.contrib.auth import update_session_auth_hash
+from django.db.models import Q
+
+
+
+
+def search_product(request):
+    search_query = request.POST.get('search', '').strip()  # Get and clean the search term
+    products = None  # Initialize products variable
+    
+    if request.method == 'POST' and search_query:  # Only search if there's a query
+        products = Product.objects.filter(
+            Q(name__icontains=search_query) | 
+            Q(description__icontains=search_query)
+        ).distinct()  # Add distinct() to avoid duplicates
+        
+        if not products.exists():  # More efficient than 'if not products'
+            messages.info(request, 'No products found matching your search.')
+    
+    context = {
+        'search_query': search_query,  # The original search term
+        'products': products,  # The filtered products
+        'searched': bool(search_query)  # Flag indicating if a search was attempted
+    }
+    return render(request, 'search_product.html', context)
+
 
 
 
