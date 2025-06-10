@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from shop.models import Product
+from shop.models import Product , Profile
 
 
 def view_cart(request):

@@ -92,6 +92,8 @@ def logout_user(request):
     messages.success(request , 'Logout successfully')
     return redirect('products')
 
+
+
 def update_user(request):
     if request.user.is_authenticated:
         user = User.objects.get(id=request.user.id)
@@ -129,6 +131,7 @@ def update_password(request):
     else:
         messages.error(request, 'You need to be logged in to change your password')
         return redirect('login')
+
 
 
 def signup_user(request):
@@ -170,6 +173,7 @@ def product_detail(request,pk):
     # product = Product.objects.get(pk=pk)
     product = get_object_or_404(Product, pk=pk)
     return render(request , 'product_detail.html' , {'product': product})
+
 
 
 def category_products(request, category_name):

@@ -1,81 +1,89 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="card shadow-lg border-0 mb-4">
-                    <div class="row g-0">
-                        <div class="col-md-5 d-flex align-items-center justify-content-center bg-light rounded-start">
-                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded" style="max-height: 350px; object-fit: contain;" />
-                        </div>
-                        <div class="col-md-7">
-                            <div class="card-body p-4">
-                                    {% if product.is_in_discount %}
-                                        <div class="badge bg-dark bg-opacity-50 text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Special offer</div>
-                                    {% endif %}
-                                    <!-- Product details -->
-                                    <div class="text-center">
-                                        {% for i in "12345"|slice:":product.gave_star" %}
-                                            <div class="bi-star-fill text-warning d-inline"></div>
-                                        {% endfor %}
-                                        <!-- Product name -->
-                                        <h5 class="fw-bolder">{{ product.name }}</h5>
-                                        <p>{{ product.description }}</p>
-                                        <!-- Product price -->
-                                        {% if product.is_in_discount %}
-                                            <p class="text-decoration-line-through">{{ product.price }}$</p>
-                                            <p class="">{{ product.discount }}$</p>
-                                        {% else %}
-                                            <p>{{ product.price }}$</p>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                                <!-- Product actions -->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-srent">
-                                    <div class="text-center">
-                                        <label for="quantity">Quantity:</label>
-                                        <input type="number" id="quantity" name="quantity" value="1" min="1" style="width: 60px;">
-                                        <button id="add-to-cart-btn" class="btn btn-outline-dark mt-auto">Add to Cart</button>
-                                        <div id="add-to-cart-message" style="margin-top:10px;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+      <div class="text-center text-white">
+        <h1 class="display-4 fw-bolder">Your Basket!</h1>
+        <p class="lead fw-normal text-white-50 mb-0">You gonna find out soon!</p>
+      </div>
     </div>
+  </header>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('#add-to-cart-btn').click(function(e) {
-        e.preventDefault();
-        var quantity = $('#quantity').val();
-        var item_id = '{{ product.id }}';
-        var csrftoken = '{{ csrf_token }}';
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card shadow-lg border-0 mb-4">
+          <div class="row g-0">
+            <div class="col-md-5 d-flex align-items-center justify-content-center bg-light rounded-start">
+              <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded" style="max-height: 350px; object-fit: contain;" />
+            </div>
+            <div class="col-md-7">
+              <div class="card-body p-4">
+                {% if product.is_in_discount %}
+                  <div class="badge bg-dark bg-opacity-50 text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Special offer</div>
+                {% endif %}
+                <!-- Product details -->
+                <div class="text-center">
+                  {% for i in '12345'|slice:':product.gave_star' %}
+                    <div class="bi-star-fill text-warning d-inline"></div>
+                  {% endfor %}
+                  <!-- Product name -->
+                  <h5 class="fw-bolder">{{ product.name }}</h5>
+                  <p>{{ product.description }}</p>
+                  <!-- Product price -->
+                  {% if product.is_in_discount %}
+                    <p class="text-decoration-line-through">{{ product.price }}$</p>
+                    <p class="">{{ product.discount }}$</p>
+                  {% else %}
+                    <p>{{ product.price }}$</p>
+                  {% endif %}
+                </div>
+              </div>
+              <!-- Product actions -->
+              <div class="card-footer p-4 pt-0 border-top-0 bg-srent">
+                <div class="text-center">
+                  <label for="quantity">Quantity:</label>
+                  <input type="number" id="quantity" name="quantity" value="1" min="1" style="width: 60px;" />
+                  <button id="add-to-cart-btn" class="btn btn-outline-dark mt-auto">Add to Cart</button>
+                  <div id="add-to-cart-message" style="margin-top:10px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#add-to-cart-btn').click(function (e) {
+        e.preventDefault()
+        var quantity = $('#quantity').val()
+        var item_id = '{{ product.id }}'
+        var csrftoken = '{{ csrf_token }}'
+    
         $.ajax({
-            url: "{% url 'add_to_cart' %}",
-            type: "POST",
-            data: {
-                'item_id': item_id,
-                'quantity': quantity,
-                'csrfmiddlewaretoken': csrftoken
-            },
-            success: function(response) {
-                $('#add-to-cart-message').html('<div class="alert alert-success">Product added to cart!</div>');
-                // Update cart quantity badge
-                var currentCount = parseInt($('#cart-quantity-badge').text());
-                var newCount = currentCount + parseInt(quantity);
-                $('#cart-quantity-badge').text(newCount);
-            },
-            error: function(xhr, status, error) {
-                $('#add-to-cart-message').html('<div class="alert alert-danger">Error adding product to cart.</div>');
-            }
-        });
-    });
-});
-</script>
+          url: "{% url 'add_to_cart' %}",
+          type: 'POST',
+          data: {
+            item_id: item_id,
+            quantity: quantity,
+            csrfmiddlewaretoken: csrftoken
+          },
+          success: function (response) {
+            $('#add-to-cart-message').html('<div class="alert alert-success">Product added to cart!</div>')
+            // Update cart quantity badge
+            var currentCount = parseInt($('#cart-quantity-badge').text())
+            var newCount = currentCount + parseInt(quantity)
+            $('#cart-quantity-badge').text(newCount)
+          },
+          error: function (xhr, status, error) {
+            $('#add-to-cart-message').html('<div class="alert alert-danger">Error adding product to cart.</div>')
+          }
+        })
+      })
+    })
+  </script>
 {% endblock %}
