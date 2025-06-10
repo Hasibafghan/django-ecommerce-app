@@ -29,7 +29,7 @@ def payment(request):
         form = PaymentForm(request.POST, instance=payment_info)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Payment information updated successfully!')
+            messages.success(request, 'Payment is done successfully!')
             return redirect('products')
     else:
         form = PaymentForm(instance=payment_info)

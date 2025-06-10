@@ -58,10 +58,15 @@
             </tbody>
           </table>
 
-
-          <h3>Total: ${{ total_price }}</h3>
-
-          {# <a href="{% url 'checkout' %}" class="btn btn-success">Proceed to Checkout</a> #}
+          <div class="d-flex justify-content-between align-items-center mt-4">
+            <div class="">
+              <h3>Total: ${{ total_price }}</h3>
+            </div>
+            <div>
+              <a href="{% url 'payment_info' %}"><button type="submit" class="btn btn-success ">Confirm Payment</button></a>
+            </div>
+            {# <a href="{% url 'checkout' %}" class="btn btn-success ms-2">Proceed to Checkout</a> #}
+          </div>
 
           {% else %}
           <h3 class="text-center">Your cart is empty.</h3>

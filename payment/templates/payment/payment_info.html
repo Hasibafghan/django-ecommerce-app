@@ -20,8 +20,8 @@
                     </div>
                     <div class="card-body p-4">
                         <form method="post">
-                            {{form.as_p}}
                             {% csrf_token %}
+                            {{form.as_p}}
                             <button type="submit" class="btn btn-success w-100">Pay Now</button>
                         </form>
                     </div>
